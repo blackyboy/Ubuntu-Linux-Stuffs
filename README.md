@@ -1,6 +1,3 @@
-IP TABLES FOR Servers
-===================
-
 
 To Save the Iptables and Restart follow the Steps 
 
