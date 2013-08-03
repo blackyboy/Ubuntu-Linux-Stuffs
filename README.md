@@ -1,4 +1,3 @@
-
 To Save the Iptables and Restart follow the Steps 
 
 
@@ -26,7 +25,7 @@ Save the iptables after reboot
 
 
 ```
-#sudo iptables-persistent save 
+#sudo service iptables-persistent save 
 
 ```
 
@@ -34,7 +33,7 @@ Restart the iptables to take effect
 
 
 ```
-#sudo iptables-persistent restart
+#sudo service iptables-persistent restart
 
 ```
 
