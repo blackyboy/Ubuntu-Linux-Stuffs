@@ -1,8 +1,5 @@
-Ubuntu-Linux-Stuffs
+IP TABLES FOR Servers
 ===================
-
-Linux Ubuntu Stuffs
-
 
 
 To Save the Iptables and Restart follow the Steps 
