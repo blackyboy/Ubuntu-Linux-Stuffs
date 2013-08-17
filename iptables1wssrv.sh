@@ -30,7 +30,7 @@ iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 2002 -j ACCEPT
 
 #4.This Will Enable the Port Number 80 for http 
 
- 
+
 iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
 
 
@@ -38,6 +38,12 @@ iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
 
  
 iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+
+
+# This Will Enable the port Number 3000 
+
+
+iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 3000 -j ACCEPT
 
 
 #6. This Will Enable Port for postgersql 
