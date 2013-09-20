@@ -1,0 +1,18 @@
+
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 9123 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 1935 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 2812 -j ACCEPT
+iptables -A OUTPUT -p icmp --icmp-type 8 -j DROP
+iptables -A INPUT -i eth0 -p tcp --dport 873 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 873 -m state --state ESTABLISHED -j ACCEPT
+iptables -N LOGGING
+iptables -A INPUT -j LOGGING
+iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
+iptables -A INPUT -j DROP
