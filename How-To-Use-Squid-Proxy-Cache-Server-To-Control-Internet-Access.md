@@ -1,0 +1,282 @@
+How To Use Squid Proxy Cache Server To Control Internet Access
+
+
+
+Squid is a proxy caching server. If you are Linux sysadmin, you can use squid to control internet access at your work environment.
+
+This beginners guide will give a jump-start on how to setup squid on Linux to restrict internet access in an network.
+
+Install Squid
+
+You should install the following three squid related packages on your system.
+
+squid
+squid-common
+squid-langpack
+On Debian and Ubuntu, use aptitude to install squid as shown below. On CentOS, use yum to install the squid package.
+
+
+````
+
+
+# sudo aptitude install squid 
+
+
+```
+
+
+
+Check Configuration and Startup scripts
+
+Apart from installing the squid related packages, it also creates the /etc/squid/squid.conf and /etc/init.d/squid startup script.
+
+By default Squid runs on 3128 port. You can verify this from the squid.conf file. You can also set the visible_hostname parameter in your squid.conf, which will be used in error_log. If you don’t define, squid gets the hostname value using gethostname() function.
+
+
+
+```
+
+# vim /etc/squid/squid.conf
+visible_hostname sysadmin12
+httpd_port 3128
+
+
+```
+
+
+> Note : The http port number (3128) specified in the squid.conf should be entered in the proxy setting section in the client browser. If squid is built with SSL, you can use https_port option inside squid.conf to define https squid.
+
+
+
+Start Squid and View Logs
+
+Start the Squid proxy caching server as shown below.
+
+
+```
+
+# etc/init.d/squid start
+
+squid3 start/running, process 7130
+
+
+```
+
+Squid maintains three log files (access.log, cache.log and store.log) under /var/log/squid directory.
+
+From the /var/log/squid/access.log, you can view who accessed which website at what time. Following is the format of the squid access.log record.
+
+
+```
+
+time elapsed remotehost code/status bytes method URL rfc931     peerstatus/peerhost
+
+
+```
+
+To disable logging in squid, update the squid.conf with the following information.
+
+
+```
+
+# to disable access.log
+cache_access_log /dev/null
+
+# to disable store.log
+cache_store_log none
+
+# to disable cache.log
+cache_log /dev/null
+
+
+```
+
+
+Squid Usage 1: Restrict Access to Specific Websites
+
+
+
+This is how you can restrict folks from browsing certain website when they are connected to your network using your proxy server.
+
+Create a file called restricted_sites and list all sites that you would want to restrict the access.
+
+
+```
+
+# vim /etc/squid/restricted_sites
+www.yahoo.com
+mail.yahoo.com
+
+```
+
+
+Modify the squid.conf to add the following.
+
+
+```
+
+# vim /etc/squid/squid.conf
+acl RestrictedSites  dstdomain "/etc/squid/restricted_sites"
+http_access deny RestrictedSites
+
+```
+
+> Note: You can also configure squid as a transparent proxy server, which we’ll discuss in a separate article. Also, refer to our earlier article on how to block ip-address using fail2ban and iptables.
+
+
+
+Squid Usage 2: Allow Access to Websites Only During Specific Time
+
+
+
+Some organization might want to allow employees to surf or download from the internet only during specific timeperiods.
+
+The squid.conf configuration shown below will allow internet access for employees only between 9:00AM and 18:00 during weekdays.
+
+
+```
+
+# vim /etc/squid/squid.conf
+acl official_hours time M T W H F 09:00-18:00
+http_access deny all
+http_access allow official_hours
+
+
+```
+
+Squid Usage 3 : Restrict Access to Particular Network
+
+
+Instead of restricting specific sites, you can also provide access only to certain network and block everything else. The example below, allows access only to the 192.168.1.* internal network.
+
+
+```
+
+# vim /etc/squid/squid.conf
+acl branch_offices src 192.168.1.0/24
+http_access deny all
+http_access allow branch_offices
+
+```
+
+
+For a Linux based intrusion detection system, refer to our tripwire article.
+
+
+
+Squid Usage 4 : Use Regular Expression to Match URLs
+
+
+You can also use regular expression to allow or deny websites.
+
+First create a blocked_sites files with a list of keywords.
+
+
+```
+
+# cat /etc/squid/blocked_sites
+beer
+whisky
+www.example.com
+
+```
+
+Modify the squid.conf to block any sites that has any of these keywords in their url.
+
+```
+
+# vim /etc/squid/squid.conf
+acl blocked_sites url_regex -i "/etc/squid/blocked_sites"
+http_access deny blocked_sites
+http_access allow all
+
+```
+
+
+In the above example, -i option is used for ignoring case for matching. So, while accessing the websites, squid will try to match the url with any of the pattern mentioned in the above blocked_sites file and denies the access when it matches.
+
+
+SARG – Squid Analysis Report Generator
+
+Download and install SARG to generate squid usage reports.
+
+Use the sarg-reports command to generate reports as shown below.
+
+
+```
+
+# to generate the report for today
+sarg-report today
+
+# on daily basis
+sarg-report daily
+
+# on weekly basis
+sarg-report weekly
+
+# on monthly basis
+sarg-report monthly
+
+```
+
+> Note: Add the sarg-report to the crontab.
+
+The reports generated by sarg are stored under /var/www/squid-reports. These are html reports can you can view from a browser.
+
+
+```
+
+$ ls /var/www/squid-reports
+Daily  index.hyml
+
+$ ls /var/www/squid-reports/Daily
+2010Aug28-2010Aug28  images  index.html
+
+
+```
+
+
+
+To Block Streaming Media Online
+
+
+Config File squid configuration in /etc/squid3/squid3.conf
+
+
+Edit File in squid.conf above line in ACL Zone.
+
+
+################## ACL for Radio / Video Stream ###########################
+```
+acl StreamingRequest1 req_mime_type -i ^video/x-ms-asf$
+acl StreamingRequest2 req_mime_type -i ^application/vnd.ms.wms-hdr.asfv1$
+acl StreamingRequest3 req_mime_type -i ^application/x-mms-framed$
+acl StreamingRequest4 req_mime_type -i ^audio/x-pn-realaudio$
+acl StreamingReply1 rep_mime_type -i ^video/x-ms-asf$
+acl StreamingReply2 rep_mime_type -i ^application/vnd.ms.wms-hdr.asfv1$
+acl StreamingReply3 rep_mime_type -i ^application/x-mms-framed$
+acl StreamingReply4 rep_mime_type -i ^audio/x-pn-realaudio$
+```
+################## ACL for Radio / Video Stream ###########################
+
+
+Edit File in squid.conf above line in http_access Zone.
+
+
+#################### Rules to block Radio / Video Stream #################
+```
+http_access deny StreamingRequest1 all
+http_access deny StreamingRequest2 all
+http_access deny StreamingRequest3 all
+http_access deny StreamingRequest4 all
+
+http_reply_access deny StreamingReply1 all
+http_reply_access deny StreamingReply2 all
+http_reply_access deny StreamingReply3 all
+http_reply_access deny StreamingReply4 all
+```
+#################### Rules to block Radio / Video Stream #################
+
+
+
+
