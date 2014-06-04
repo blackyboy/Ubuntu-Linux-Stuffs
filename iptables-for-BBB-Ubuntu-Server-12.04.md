@@ -1,3 +1,4 @@
+```
 #!/bin/bash
 #This Script was Used for Only Setting up Iptables in ubuntu 12.04 server
 #uncomment the Lines With # Which u don't need to use 
@@ -124,3 +125,4 @@ iptables -A INPUT -j DROP
 
 ------------------------x--------------------x-----------------------
 exit
+```
