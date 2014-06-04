@@ -1,3 +1,6 @@
+#### Secure the Server Using Hard way
+
+
 ```
 #!/bin/bash
 #This Script was Used for Only Setting up Iptables in ubuntu 12.04 server
@@ -24,10 +27,22 @@ iptables -A INPUT -i eth0 -p udp --dport 80 -m state --state NEW,ESTABLISHED -j 
 iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp --sport 80 -m state --state ESTABLISHED -j ACCEPT
 
-------------------------------x-------------------------x---------------------------
+exit
+```
 
-# Below iptables are Only for Default CHAIN ACCEPT
 
+#### Below iptables are Only for Default CHAIN ACCEPT
+
+
+```
+#!/bin/bash
+#This Script was Used for Only Setting up Iptables in ubuntu 12.04 server
+#uncomment the Lines With # Which u don't need to use 
+#if u going to use this script in remote VPS Test it in local systems before applying it in remote VPS .
+
+sleep 2
+
+set -x
 # Null packets are, simply said, recon packets. see how we configured the VPS and find out weaknesses.
 
 iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
