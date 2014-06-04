@@ -13,6 +13,20 @@ set -x
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+
+------------------------------x-------------------------x---------------------------
+
+# Below iptables are Only for Default CHAIN ACCEPT
 
 # Null packets are, simply said, recon packets. see how we configured the VPS and find out weaknesses.
 
