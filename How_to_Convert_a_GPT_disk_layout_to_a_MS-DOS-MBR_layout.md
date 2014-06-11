@@ -1,6 +1,6 @@
-How to Convert GPT to MBR layout in any Drive's 
+#### How to Convert GPT to MBR layout in any Drive's 
 
-Here we can see how to change from GPT to MBR (Microsoft Master Boot Record), I need to format my pen drive while Installing Linux Mint Using USB, So i have formatted it using gdisk command, After that while i try to format my pen drive using fdisk i won't get format, It's give's the Below Error
+* Here we can see how to change from GPT to MBR (Microsoft Master Boot Record), I need to format my pen drive while Installing Linux Mint Using USB, So i have formatted it using gdisk command, After that while i try to format my pen drive using fdisk i won't get format, It's give's the Below Error
 
 ![selection_002](https://raw.githubusercontent.com/blackyboy/Ubuntu-Linux-Stuffs/master/GPT_disk_layout_to_a_MS-DOS/Selection_001.png)
 
