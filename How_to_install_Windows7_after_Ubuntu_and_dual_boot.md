@@ -31,7 +31,7 @@ If you DO NOT have a separate `/boot` partition:
 * If you have a SEPARATE `/boot` partition:
 
 ```
-# sudo mount /dev/DEVICENAME_FROM_STEP_ONE /boot
+# sudo mount /dev/sda /boot
 ```
 
 ###Step Four
