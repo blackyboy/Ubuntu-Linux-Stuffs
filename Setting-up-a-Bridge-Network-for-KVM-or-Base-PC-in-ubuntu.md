@@ -1,3 +1,4 @@
+##### Setting Bridge Network for KVM
 
 ```
 auto lo
@@ -8,7 +9,7 @@ iface eth0 inet manual
 
 auto br0
 iface br0 inet static
-        address 192.168.1.99
+        address 192.168.1.254
         network 192.168.1.0
         netmask 255.255.255.0
         broadcast 192.168.1.255
