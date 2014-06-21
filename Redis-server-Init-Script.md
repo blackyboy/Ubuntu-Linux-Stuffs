@@ -1,6 +1,7 @@
 ```
 #! /bin/sh
 ### BEGIN INIT INFO
+#Author:		blackyboy
 # Provides:             redis-server
 # Required-Start:       $syslog $remote_fs
 # Required-Stop:        $syslog $remote_fs
