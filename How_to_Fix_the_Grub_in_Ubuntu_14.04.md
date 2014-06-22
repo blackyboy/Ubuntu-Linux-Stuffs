@@ -1,4 +1,4 @@
-How to Fix the Grub in Ubuntu 14.04
+#### How to Fix the Grub in Ubuntu 14.04
 
 * Boot from Ubuntu Installation CD and Choosed Try Ubuntu, While in this live CD environment, in terminal
 
