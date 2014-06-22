@@ -1,4 +1,4 @@
-How To Use Squid Proxy Cache Server To Control Internet Access
+#### How To Use Squid Proxy Cache Server To Control Internet Access
 
 
 
