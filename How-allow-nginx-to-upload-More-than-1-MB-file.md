@@ -1,3 +1,5 @@
+####How allow nginx to upload More than 1 MB file
+
 
 By Default Nginx will allow to upload 1 MB file
 By Using below Directive we can upload upto 10 MB 
