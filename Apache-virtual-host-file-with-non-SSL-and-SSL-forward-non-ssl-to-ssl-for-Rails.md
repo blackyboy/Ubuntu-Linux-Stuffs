@@ -1,3 +1,5 @@
+#### Apache virtual host file with non SSL and SSL forward non ssl to ssl for Rails
+
 ```
 <VirtualHost *:80>
   ServerName  mydomain.com
