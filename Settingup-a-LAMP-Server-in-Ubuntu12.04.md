@@ -1,4 +1,4 @@
-Settingup a LAMP Server in Ubuntu12.04
+#### Settingup a LAMP Server in Ubuntu12.04
 
 
 Installing Apache2,PHP5 & MySQL On Ubuntu12.04 LTS For Settingup a LAMP Server 
