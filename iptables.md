@@ -1,4 +1,4 @@
-#### Secure the Server Using Hard way
+#### Secure the Server Using Hardway
 
 
 ```
