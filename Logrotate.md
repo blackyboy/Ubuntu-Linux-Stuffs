@@ -1,4 +1,4 @@
-### Log Rotation
+#### Log Rotation setup
 
 Log rotation is an automated process used in system administration in which dated log files are archived. In general, it is used on servers. Servers which run large applications, such as LAMP stacks, often log every request, and as such, the process of log rotation may be beneficial.
 
