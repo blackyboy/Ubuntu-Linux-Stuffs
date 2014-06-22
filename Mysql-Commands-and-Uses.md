@@ -1,4 +1,4 @@
-Mysql Database Commands
+##### Mysql Database Commands
 
 
 you can login to mysql root account without providing any password as shown below.
