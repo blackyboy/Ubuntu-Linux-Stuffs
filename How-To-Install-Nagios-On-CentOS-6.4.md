@@ -1,7 +1,7 @@
-                              How To Install Nagios On CentOS 
+#### How To Install Nagios On CentOS 
 
 
- Install Packages on Monitoring Server
+* Install Packages on Monitoring Server
 
 
 ```
