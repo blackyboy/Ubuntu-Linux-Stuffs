@@ -1,9 +1,8 @@
-
-How to install Nagios in Ubuntu 12.04 LTS
-
+####How to install Nagios in Ubuntu 12.04 LTS
 
 
-Install ubuntu With Openssh-server & Instal LAMP server
+
+* Install ubuntu With Openssh-server & Instal LAMP server
 
 ```
 
