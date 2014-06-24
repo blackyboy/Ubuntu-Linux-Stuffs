@@ -1,4 +1,4 @@
-How to ENTER into Recovery mode in Ubuntu Linux 
+#### How to ENTER into Recovery mode in Ubuntu Linux 
 
 Booting into recovery mode
 
