@@ -1,4 +1,4 @@
-How to install cacti With Nginx 
+##### How to install cacti With Nginx 
 
 
 Cacti provides an exceptionally easy to use system monitoring solution.  Essential graphs are included by default, such as load average and memory usage.
