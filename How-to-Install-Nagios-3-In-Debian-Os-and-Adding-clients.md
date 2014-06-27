@@ -1,4 +1,4 @@
- Installation Of Two Default ubuntu12.04 LTS Servers Machines
+#### Installation Of Two Default ubuntu12.04 LTS Servers Machines
 
 Prepare two ubuntu12.04 LTS Servers machines with a minimal setup. Build yourself a good working environment.
 
