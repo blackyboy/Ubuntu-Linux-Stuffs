@@ -1,4 +1,4 @@
-How To Disable Ping Replies in Linux using icmp_echo_ignore_all
+#### How To Disable Ping Replies in Linux using icmp_echo_ignore_all
 
 
 You may want to disable ping replies for many reasons, may be for a security reason, or to avoid network congestion.
