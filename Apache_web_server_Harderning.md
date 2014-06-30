@@ -107,6 +107,19 @@ chmod -R 770 /etc/httpd/conf/httpd.conf
 # usermod -a -G web-admins web-engg
 ```
 
+
+* Disable Symlink 
+
+
+```
+<Directory />
+    Options -FollowSymLinks
+    AllowOverride None
+    Order deny,allow
+    Deny from all
+</Directory>
+```
+
 * Disable Other options such like ExecCGI
 
 
