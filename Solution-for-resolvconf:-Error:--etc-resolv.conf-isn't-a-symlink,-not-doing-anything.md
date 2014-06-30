@@ -1,4 +1,4 @@
-Error >>>> resolvconf: Error: /etc/resolv.conf isn't a symlink, not doing anything
+#### Error >>>> resolvconf: Error: /etc/resolv.conf isn't a symlink, not doing anything
 
 If we get this error in Ubuntu while Restarting Network 
 
