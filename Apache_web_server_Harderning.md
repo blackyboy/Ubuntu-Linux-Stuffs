@@ -119,3 +119,26 @@ chmod -R 770 /etc/httpd/conf/httpd.conf
 </Directory>
 ```
 
+* Restrict Access to Specific IP Address or Network
+
+
+```
+<VirtualHost 192.168.1.100:80>
+    ServerAdmin blackyboy@masterdns.local.lan
+    DocumentRoot /var/www/html
+    ServerName masterdns.local.lan
+<Directory /var/www/html/office>
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.1.0/255.255.255.0
+</Directory>
+<Directory /var/www/html/accounts>
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.1.10
+</Directory>
+    ErrorLog logs/masterdns.local.lan-error_log
+    CustomLog logs/masterdns.local.lan-access_log common
+</VirtualHost>
+```
+
