@@ -31,7 +31,7 @@
 ps -ef | grep -i http | awk '{print $1}'
 ```
 
-* Disable Apache and server Information's
+* Disable Apache and server Informations
 
 
 ```
@@ -104,6 +104,18 @@ chmod -R 770 /etc/httpd/conf/httpd.conf
 
 ```
 # usermod -a -G web-admins web-administrator
-# usermod -a -G web-admins  web-engg
+# usermod -a -G web-admins web-engg
+```
+
+* Disable Other options such like ExecCGI
+
+
+```
+<Directory/>
+  Options -Include -ExecCGI
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+</Directory>
 ```
 
