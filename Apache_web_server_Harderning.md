@@ -199,3 +199,10 @@ iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 10
 iptables -A INPUT -j DROP
 ```
 
+* Update the apache to Current version
+
+
+```
+# yum update httpd -y
+# httpd -v
+```
