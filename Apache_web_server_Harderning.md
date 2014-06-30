@@ -142,3 +142,21 @@ chmod -R 770 /etc/httpd/conf/httpd.conf
 </VirtualHost>
 ```
 
+
+* Add a SSL Certiificate for Web server
+
+
+```
+<VirtualHost 192.168.1.100:80>
+    ServerAdmin blackyboy@dnsmaster.lan
+    DocumentRoot /var/www/html
+    ServerName masterdns.local.lan
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/masterdns.local.lan.crt
+    SSLCertificateKeyFile /etc/pki/tls/masterdns.local.lan.key
+    SSLCertificateChainFile /etc/pki/tls/certs/masterdns.local.lan-bundle.crt
+    ErrorLog logs/masterdns.local.lan-error_log
+    CustomLog logs/masterdns.local.lan-access_log common
+</VirtualHost>
+```
+
