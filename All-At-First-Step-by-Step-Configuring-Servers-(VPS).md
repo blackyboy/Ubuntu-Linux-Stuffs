@@ -99,6 +99,14 @@ to
 PermitRootLogin no
 ```
 
+Add the allowed Users to restirct others
+
+
+```
+AllowUsers root sysadmin arrivu
+
+```
+
 Then Restart the ssh service using 
 
 ```
