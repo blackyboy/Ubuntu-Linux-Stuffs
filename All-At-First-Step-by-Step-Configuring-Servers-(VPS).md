@@ -1,27 +1,28 @@
-First Create a user sysadmin
+* First Create a user sysadmin
 
 ```
 # useradd -m -s /bin/bash sysadmin
 ```
 
-Create a password for sysadmin
+* Create a password for sysadmin
 
 ```
 # passwd sysadmin
 ```
-Add the Created Sysadmin user to Sudo Group to get root privileges
+
+* Add the Created Sysadmin user to Sudo Group to get root privileges
 
 ```
 # sudo usermod -a -G sudo sysadmin
 ```
 
-Change the Port number for ssh
+* Change the Port number for ssh
 
 ```
 # vim /etc/ssh/sshd_config 
 ```
 
-Change the Port 22 to some what we which above 2000
+* Change the Port 22 to some what we which above 2000
 
 ```
 Port 22
@@ -35,7 +36,7 @@ Note: While Applying iptables Don't forget to Open the port 2222 , If not we wil
 iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 2222 -j ACCEPT
 ```
 
-Change the LoginGraceTime 120 to some minimum value (Mine is 30)
+* Change the LoginGraceTime 120 to some minimum value (Mine is 30)
 
 UnComment 
 
@@ -43,7 +44,7 @@ UnComment
 #Banner /etc/issue.net
 ```
 
-And Create a file in /etc/issue.net for banner while ssh login 
+* And Create a file in /etc/issue.net for banner while ssh login 
 
 I use this 
 
@@ -82,7 +83,7 @@ conditions stated in this warning.
 ****************************************************************************
 ```
 
-Try to login the newly Created sysadmin account from terminal and check
+* Try to login the newly Created sysadmin account from terminal and check
 
 Then edit the 
 
@@ -99,15 +100,24 @@ to
 PermitRootLogin no
 ```
 
-Add the allowed Users to restirct others
+* Add the allowed Users to restirct others
 
 
 ```
-AllowUsers root sysadmin arrivu
+AllowUsers user1 user2 user3
 
 ```
 
-Then Restart the ssh service using 
+
+* Client idle Logout
+
+
+```
+ClientAliveInterval 300
+ClientAliveCountMax 0
+```
+
+* Then Restart the ssh service using 
 
 ```
 # sudo /etc/init.d/ssh restart
