@@ -117,6 +117,13 @@ ClientAliveInterval 300
 ClientAliveCountMax 0
 ```
 
+* Limit the amount of unauthenticated SSH connections
+
+
+```
+MaxStartups 2:30:5
+```
+
 * Then Restart the ssh service using 
 
 ```
