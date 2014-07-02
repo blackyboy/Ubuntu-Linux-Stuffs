@@ -1,6 +1,9 @@
 #!/bin/bash
 set -x
-
+#################################
+# iptables for dedicated server # 
+#        Linux Hardening        #
+#################################
 # Default filter
 
 iptables -P INPUT DROP
