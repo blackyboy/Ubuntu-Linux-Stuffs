@@ -116,6 +116,9 @@ AllowUsers user1 user2 user3
 ClientAliveInterval 300
 ClientAliveCountMax 0
 ```
+Note : Follow the Below link to Create a Logout script
+     * [Logout SSH Users if idle for a while](https://github.com/blackyboy/Ubuntu-Linux-Stuffs/blob/master/Logout_SSH_Users_if_idle_for_a_while.md).
+
 
 * Limit the amount of unauthenticated SSH connections
 

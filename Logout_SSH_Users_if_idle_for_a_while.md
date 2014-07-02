@@ -50,12 +50,13 @@ set -r autologout 5
 
 * Append the following content 
 
-``
+```
 ClientAliveInterval 300
 ClientAliveCountMax 0
 ```
 
 * Restart the service 
+
 
 ```
 # service sshd restart
