@@ -36,6 +36,13 @@ Note: While Applying iptables Don't forget to Open the port 2222 , If not we wil
 iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 2222 -j ACCEPT
 ```
 
+* Logging
+
+
+```
+LogLevel VERBOSE
+```
+
 * Change the LoginGraceTime 120 to some minimum value (Mine is 30)
 
 UnComment 
