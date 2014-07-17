@@ -331,7 +331,20 @@ To Download a list of files which in a download.txt
 
 ```
 # cat download.txt | xargs wget -c
+```
+
+### wget commands 
+
+To Download list of links from a file
+
+```
 # wget -i list_to_download_from_file.txt
+```
+To Download only sub-directory by avoiding parent Dir
+
+```
+# wget -i -np http://links-to-download/list/packages
+
 ```
 
 ### Sort Command
