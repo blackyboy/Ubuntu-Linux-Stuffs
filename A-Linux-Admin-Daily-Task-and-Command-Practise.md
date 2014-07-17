@@ -321,7 +321,11 @@ last x number of days
 find /home/jsmith -type f -mtime +60 | xargs tar -cvf /tmp/`date '+%d%m%Y'_archive.tar`
 
 ```
+To find large file more than 50MB size inside a Directory and subdirectory
 
+```
+find . -type f -size +50000k | xargs du -sh
+```
 ### xargs Command
 To Download a list of files which in a download.txt 
 
