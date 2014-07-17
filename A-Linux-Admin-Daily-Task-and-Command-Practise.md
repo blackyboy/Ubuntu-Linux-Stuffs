@@ -330,7 +330,8 @@ find . -type f -size +50000k | xargs du -sh
 To Download a list of files which in a download.txt 
 
 ```
-cat download.txt | xargs wget -c
+# cat download.txt | xargs wget -c
+# wget -i list_to_download_from_file.txt
 ```
 
 ### Sort Command
