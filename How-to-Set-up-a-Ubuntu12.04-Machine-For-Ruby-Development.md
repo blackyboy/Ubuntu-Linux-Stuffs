@@ -121,7 +121,6 @@ Get the repository by using command
 # sudo apt-get update
 # sudo apt-get install cinnamon
 ```
-```
 
 Install Google Chrome from the Reporositry
 
