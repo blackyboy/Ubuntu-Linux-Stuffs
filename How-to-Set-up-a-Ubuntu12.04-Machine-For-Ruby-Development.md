@@ -53,7 +53,7 @@ nameserver 8.8.8.8
 If the resolv.conf Overwritten After the System Restart to its Default 
 Edit the Base file of resolvconf 
 
-Add the name servers here then it own't Overwritten after the Restart 
+Add the name servers here then it ownt Overwritten after the Restart 
 ```
 #vi /etc/resolvconf/resolv.conf.d/base
 
@@ -95,25 +95,32 @@ Acquire::http {Proxy "http://192.168.1.30:3142"; };
 
 ```
 ------------------------------------------------------------------------------------
+
 Install Cinnamon 1.6.4 in Ubuntu to Change the Desktop Appearance
 
+
 ```
-#sudo apt-get update
-
-Install Supporting packages
-
-#apt-get install build-essential
-
-#sudo apt-get install python-software-properties
-
+# sudo apt-get update
+# apt-get install build-essential
+# sudo apt-get install python-software-properties
+```
 Get the repository by using command 
 
-#sudo add-apt-repository ppa:gwendal-lebihan-dev/cinnamon-stable
+* Option 1: 12.04 & 14.04 users only
 
-#sudo apt-get update
+```
+# sudo add-apt-repository ppa:tsvetko.tsvetkov/cinnamon
+# sudo apt-get update
+# sudo apt-get install cinnamon
+```
 
-#sudo apt-get install cinnamon
+* Option 2: 14.04 users only
 
+```
+# sudo add-apt-repository ppa:lestcape/cinnamon
+# sudo apt-get update
+# sudo apt-get install cinnamon
+```
 ```
 
 Install Google Chrome from the Reporositry
