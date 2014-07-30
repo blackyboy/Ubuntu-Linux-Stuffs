@@ -90,6 +90,33 @@ conditions stated in this warning.
 ****************************************************************************
 ```
 
+
+or 
+
+
+```
+NOTICE TO USERS:
+----------------
+
+
+ _____________________________________
+/ You will be audited by the Internal \
+\ Revenue Service.                    /
+ -------------------------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+
+--------------------------------------------
+```
+
+
 * Try to login the newly Created sysadmin account from terminal and check
 
 Then edit the 
