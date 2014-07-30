@@ -189,7 +189,7 @@ server {
         ssl on;
         ssl_certificate /etc/ssl/certs/STAR_mydomain.com.crt;
         ssl_certificate_key /etc/ssl/private/mydomain.com.key;
-	ssl_protocols SSLv3 TLSv1;
+        ssl_protocols SSLv3 TLSv1;
         ssl_ciphers ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM;
         client_body_in_file_only clean;
         client_body_buffer_size 32K;
