@@ -110,7 +110,9 @@
 
 * Check the partitions using 
 
-# df -h
 
+```
+# df -h
+```
 
 
