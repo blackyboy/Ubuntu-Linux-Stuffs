@@ -104,7 +104,7 @@
 * Mount the shared volume from the glusterfs server
 
 ```
-# sudo mount -t glusterfs 192.168.1.100:/shared_driv /mnt/gluster/
+# sudo mount -t glusterfs 192.168.1.100:/shared_drive /mnt/gluster/
 ```
 
 
