@@ -53,7 +53,7 @@ ForceCommand internal-sftp
 # sudo service ssh restart
 ```
 
-* Now login from CLient machines
+* Now login from client machines
 
 
 ```
