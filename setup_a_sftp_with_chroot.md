@@ -9,6 +9,8 @@
 
 * Add the user to newly created Group
 
+  Note : User is not adding in Sudo, Dont try with current user what you using, if so you will loose the admin privilages
+
 
 ```
 # usermod -G secure_ftp sysadmin
