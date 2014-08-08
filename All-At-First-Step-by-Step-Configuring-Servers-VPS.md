@@ -167,3 +167,12 @@ MaxStartups 2:30:5
 ```
 # sudo /etc/init.d/ssh restart
 ```
+
+* check for a SSL Bug.
+
+
+```
+# openssl s_client -connect your_domain.com:443
+```
+
+
