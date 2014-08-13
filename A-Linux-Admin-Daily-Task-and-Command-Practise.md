@@ -34,13 +34,6 @@ Must watch the Logs Every day .
 
 ```
 
-* To Find a Particular Files Extension in Linux 
-
-```
-
-# find . -type f  -name '*.php' -printf '%TY-%Tm-%Td %TT %p\n' | sort
-
-```
 
 * How to Create A ISO File From Ubuntu Disk 
 
@@ -274,9 +267,14 @@ find /-mtime +60
 
 Find the files that are modified in last 2 days back
 
-
 ```
 find / -mtime -2
+```
+
+Find the unmodified files and list which more than 30 days old
+
+```
+find /home/blackyboy/Downloads/ -type f -atime +30 -exec ls -l {} \;
 ```
 
 Delete all the archive files with extension *.tar.gz
@@ -287,6 +285,16 @@ find / -type f -name *.tar.gz -size +100M -exec ls -l {}\;
 
 find / -type f -name *.tar.gz -size +100M -exec rm -f {}\;
 ```
+
+
+* To Find a Particular Files Extension in Linux 
+
+```
+
+# find . -type f  -name '*.php' -printf '%TY-%Tm-%Td %TT %p\n' | sort
+
+```
+
 
 To Copy only the file's of sysadmin from current Directory to /tmp/backup
 
