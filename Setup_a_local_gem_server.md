@@ -12,11 +12,13 @@
 # gem server --port 8808 --dir /var/lib/gems/1.9.1/ --bind 192.168.1.51 --no-daemon
 ```
 
+```
 gem server = start the gem server
 --port = In which Port we need to run
 --dir  = which directory need to be used as gem repository to store and serverd.
 --bind = Need to run in this address.
 --no-daemon = dont need to be run as a daemon.
+```
 
 
 If we need to run the gem server in background and while the server startup we need to add a small script 
