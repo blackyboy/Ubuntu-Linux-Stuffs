@@ -97,5 +97,8 @@ update: --no-rdoc --no-ri
 #gem install bundler
 ```
 
-This will install all the gems, to server with every clients.
+* clone any one of the project and install gems using 
 
+```
+# bundle install
+```
