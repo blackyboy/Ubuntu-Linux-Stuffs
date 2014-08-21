@@ -90,13 +90,6 @@ install: --no-rdoc --no-ri
 update: --no-rdoc --no-ri
 ```
 
-* Then install the gems using 
-
-
-```
-#gem install bundler
-```
-
 * clone any one of the project and install gems using 
 
 ```
