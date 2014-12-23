@@ -34,6 +34,11 @@ Step 4:
 
 Then Configure the tool to using our amazon s3 storage bucket
 
+
+```
+# s3cmd --configure
+```
+
 While asking for the 
 
 1. access secret 
@@ -43,7 +48,7 @@ While asking for the
 
 Step 5:
 
-Here we can Create a Bucket to upload out file's
+Here we can Create a Bucket to upload out files
 
 ```
 # s3cmd mb s3://server-backup
