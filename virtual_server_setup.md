@@ -537,10 +537,10 @@ iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 ```
 
-* Drop Every Connection Except the Above Rules
+* Add the rules for ssh and ntp.
 
 ```
-
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -i eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -i eth0 -p udp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
