@@ -512,6 +512,8 @@ That's it we have setup-ed logwatch.
 #### Secure server using Iptables.
 
 ```
+iptables -F
+iptables -X LOGGING
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
@@ -541,6 +543,7 @@ iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
 ```
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -i eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -i eth0 -p udp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
