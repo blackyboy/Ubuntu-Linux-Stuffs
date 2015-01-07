@@ -567,12 +567,18 @@ iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "IPTables Packet
 
 # Except every above rules reject the traffic.
 
+
+```
 iptables -A INPUT -j DROP
 ```
 
+* To list the rules use, To list the iptables.
+
+```
+iptables -S , # iptables -L -n -v --line-numbers
+```
 
 #### Creating ssh key for client's
-
 
 ```
 # ssh-keygen -t rsa -b 2048 -C "admin@devops.com" -f ~/.ssh/web_servers
