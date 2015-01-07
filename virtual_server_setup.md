@@ -567,8 +567,6 @@ iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "IPTables Packet
 
 # Except every above rules reject the traffic.
 
-
-```
 iptables -A INPUT -j DROP
 ```
 
