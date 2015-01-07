@@ -508,7 +508,123 @@ Append the Below Content
 That's it we have setup-ed logwatch.
 
 
+#### Monitoring with monit.
+
+Monit is a utility for managing and monitoring, processes, files, directories and devices on a LINUX/UNIX system.
+Monit conducts automatic maintenance and repair and can execute meaningful causal actions in error situations.
+
+* Install monit using 
+
+```
+# sudo apt-get install monit 
+```
+Configure the configuration file in 
+
+```
+#/etc/monit/monitrc 
+```
+
+* configuration have to modify.
+
+```
+The Default Port Number of Monit is 2812 .
+Start Monit in the background and check services at every one minute
+set daemon 60
+Set syslog logging with the 'daemon' facility.
+set logfile /var/log/monit.log
+Set the location of the Monit id file which stores the unique id for the  Monit instance
+set idfile /var/lib/monit/id
+```
+
+* Uncomment the following lines
+
+```
+set httpd port 2812 and
+#use address localhost  # only accept connection from localhost
+#allow localhost        # allow localhost to connect to the server and
+allow admin:monit      # require user 'admin' with password 'monit'
+allow @monit           # allow users of group 'monit' to connect (rw)
+allow @users readonly  # allow users of group 'users' to connect readonly
+```
+
+* start monit service using 
+		
+```
+# sudo /etc/init.d/monit start
+```
+
+Now navigate to http://localhost:2812/ from your browser. Enter the username as admin and password as monit, Adding additional configuration parts from other files or directories.
+
+By default this will be in end of monit config file.
+
+```
+include /etc/monit/conf.d/*
+```
+
+* Adding services to monitor
+
+1. Disk Check For VDA 
+
+```
+check device disk1 with path /dev/vda
+start = "/bin/mount /dev/vda"
+stop = "/bin/umount /dev/vda"
+if space usage > 90% then alert
+if space usage > 99% then stop
+if inode usage > 90% then alert
+if inode usage > 99% then stop
+alert root@domain.com		
+```
+
+2.  Monitoring SSH Server
+
+```
+check process sshd with pidfile /var/run/sshd.pid
+start program  "/etc/init.d/sshd start"
+stop program  "/etc/init.d/sshd stop"
+if failed port 22 protocol ssh then restart
+if 5 restarts within 5 cycles then timeout
+alert root@domain.com
+```
+
+3. Monitoring Fail2ban
+
+```
+check process fail2ban with pidfile /var/run/fail2ban/fail2ban.pid
+group services
+start program = "/etc/init.d/fail2ban start"
+stop  program = "/etc/init.d/fail2ban stop"
+if 5 restarts within 5 cycles then timeout
+alert root@domain.com
+```
+
+4. #Check DevicE
+   
+```
+check device disk1 with path /dev/vda
+start = "/bin/mount /dev/vda"
+stop = "/bin/umount /dev/vda"
+if space usage > 90% then alert
+if space usage > 99% then stop
+if inode usage > 90% then alert
+if inode usage > 99% then stop
+alert root@domain.com
+```
+
+* Checking syntax, Check status using.
+
+```
+# sudo monit -t , # sudo monit status
+```
+
+* Then Start the monit service Using command 
+
+```
+# sudo /etc/init.d/monit start
+```
+
 #### Secure server using Iptables.
+
 
 Create a script using below rules and run it to deploy the rules. This Rules for Default chain as DROP. Change the ssh port according to your need.
 
