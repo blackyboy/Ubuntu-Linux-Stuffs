@@ -539,6 +539,7 @@ iptables -A OUTPUT -o lo -j ACCEPT
 
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i eth0 -m state --state INVALID -j DROP
 
 # Null packets are, simply said, recon packets. see how we configured the VPS and find out weaknesses, Reject is a syn-flood attack, XMAS packets, also a recon packet.
 
@@ -546,24 +547,52 @@ iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
 iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
+# Ethernet allows ICMP echo (PING) with rate limiting.
+iptables -A INPUT -i eth+ -m state --state NEW -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+iptables -I INPUT -i eth+ -m icmp -p icmp --icmp-type echo-request -m recent --set
+iptables -I INPUT -i eth+ -m icmp -p icmp --icmp-type echo-request -m recent --update --seconds 10 --hitcount 10 -j DROP
 
 # Allow the ssh port for incoming & outgoing traffic to accept NEW & already Established connection in both tcp/udp protocols.
 
 iptables -A INPUT -i eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
+iptables -I INPUT -i eth0 -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 2222 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state ESTABLISHED -m tcp -p tcp --dport 2222 -m recent --update --seconds 10 --hitcount 5 -j DROP
 iptables -A INPUT -i eth0 -p udp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
+iptables -I INPUT -i eth0 -m state --state NEW,ESTABLISHED -m udp -p udp --dport 2222 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state ESTABLISHED -m udp -p udp --dport 2222 -m recent --update --seconds 10 --hitcount 5 -j DROP
+
 
 # Allow the ntp port for incoming & outgoing traffic to accept NEW & already Established connection in udp protocols.
 
 iptables -A INPUT -i eth0 -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp --sport 123 -m state --state ESTABLISHED -j ACCEPT
 
+# Allow the http & https incoming & outgoing traffic to accept NEW & already Established connection in both tcp/udp protocols.
+
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+iptables -I INPUT -i eth0 -m state --state NEW -m tcp -p tcp --dport 80 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state NEW -m tcp -p tcp --dport 80 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I INPUT -i eth0 -m state --state NEW -m udp -p udp --dport 80 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state NEW -m udp -p udp --dport 80 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -A INPUT -i eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+iptables -I INPUT -i eth0 -m state --state NEW -m tcp -p tcp --dport 443 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state NEW -m tcp -p tcp --dport 443 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I INPUT -i eth0 -m state --state NEW -m udp -p udp --dport 443 -m recent --update --seconds 10 --hitcount 5 -j DROP
+iptables -I OUTPUT -o eth0 -m state --state NEW -m udp -p udp --dport 443 -m recent --update --seconds 10 --hitcount 5 -j DROP
+
 # Create a New Chain LOGGING and allow logging for INPUT chain.
 
 iptables -N LOGGING
 iptables -A INPUT -j LOGGING
-iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
+iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "Iptables packet's Dropped: " --log-level 7
 
 # Except every above rules reject the traffic.
 
