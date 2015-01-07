@@ -508,57 +508,66 @@ Append the Below Content
 That's it we have setup-ed logwatch.
 
 
-
 #### Secure server using Iptables.
 
+Create a script using below rules and run it to deploy the rules. This Rules for Default chain as DROP. Change the ssh port according to your need.
+
 ```
+# Flush every Rules, Flush the NAT table Rules, Delete the NAT Chain
+
 iptables -F
-iptables -X LOGGING
+iptables -t nat -F
+iptables -t nat -X
+
+# Flush the Mangle table Rules, Delete the Mangle Chain.
+
+iptables -t mangle -F
+iptables -t mangle -X
+
+# Set the INPUT, OUTPUT, FORWARD chain Policy to default as DROP.
+
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
+
+# Accept the incomming & Outgoing request in localhost adapter into in-interface & out-interface.
+
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-```
 
-* Null packets are, simply said, recon packets. see how we configured the VPS and find out weaknesses.
+# Match the state of connection which established and accept it in incomming & outgoing interface traffic.
 
-```
-iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
-```
-
-* Reject is a syn-flood attack
-
-```
-iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
-```
-
-* XMAS packets, also a recon packet
-
-```
-iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
-```
-
-* Add the rules for ssh and ntp.
-
-```
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -i eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -o eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -i eth0 -p udp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -o eth0 -p udp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -i eth0 -p udp --sport 123 -m state --state ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -o eth0 -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -j DROP
-```
 
-* Enabling Logging
+# Null packets are, simply said, recon packets. see how we configured the VPS and find out weaknesses, Reject is a syn-flood attack, XMAS packets, also a recon packet.
 
-```
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+
+
+# Allow the ssh port for incoming & outgoing traffic to accept NEW & already Established connection in both tcp/udp protocols.
+
+iptables -A INPUT -i eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
+
+# Allow the ntp port for incoming & outgoing traffic to accept NEW & already Established connection in udp protocols.
+
+iptables -A INPUT -i eth0 -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --sport 123 -m state --state ESTABLISHED -j ACCEPT
+
+# Create a New Chain LOGGING and allow logging for INPUT chain.
+
 iptables -N LOGGING
 iptables -A INPUT -j LOGGING
 iptables -A LOGGING -m limit --limit 10/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
+
+# Except every above rules reject the traffic.
+
+iptables -A INPUT -j DROP
 ```
 
 
