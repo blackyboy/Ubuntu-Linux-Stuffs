@@ -508,6 +508,16 @@ Append the Below Content
 That's it we have setup-ed logwatch.
 
 
+#### Disable CronJob's for every user except O.
+
+
+#### Diable at for every user except 0.
+
+
+```
+sudo vim /etc/at.deny
+```
+
 #### Monitoring with monit.
 
 Monit is a utility for managing and monitoring, processes, files, directories and devices on a LINUX/UNIX system.
