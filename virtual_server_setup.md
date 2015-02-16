@@ -416,6 +416,28 @@ This want to be Enabled
 backend = auto
 ```
 
+Change destination mail and name
+
+
+```
+destemail = alertforxxxxxxx@gmail.com
+sendername = Fail2Ban from monitor.xxxxxxxx.com
+```
+
+Change mta to mail from sendmail
+
+```
+mta=mail
+```
+
+* To get mail when ever Rules match
+
+Change action_mw to action = %(action_mwl)s
+
+```
+action = %(action_mwl)s
+```
+
 Check the ssh for Protection 
 
 ```
@@ -431,11 +453,6 @@ Here if we need to enable the service for ssh we need to change it to true
 And the Port number is 2222 for ssh in my system for testing 
 filter want to be sshd 
 max try is 3 times if not it will block and give us log.
-
-
-* To get mail when ever Rules match
-
-Change action_mw to action = %(action_mwl)s
 
 
 * rules to protect nginx 
