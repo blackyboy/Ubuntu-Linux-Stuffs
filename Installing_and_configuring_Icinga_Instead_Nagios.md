@@ -129,16 +129,16 @@ Create a host information using
 
 define host {
                 use                     generic-host
-                host_name               learning.arrivuapps.com
+                host_name               name.mydomain.com
                 alias                   Learning Arrivuapps Server
-                address                 128.199.161.44
+                address                 111.111.111.44
                 }
 
 ## Current User ##
 
 define service {
         use                             generic-service
-        host_name                       learning.arrivuapps.com
+        host_name                       name.mydomain.com
         service_description             Current Users
         check_command                   check_users!20!50
         }
@@ -147,7 +147,7 @@ define service {
 
 define service {
         use                             generic-service
-        host_name                       learning.arrivuapps.com
+        host_name                       name.mydomain.com
         service_description             Disk Space
         check_command                   check_all_disks!20%!10%
         }
@@ -156,7 +156,7 @@ define service {
 
 define service {
         use                             generic-service
-        host_name                       learning.arrivuapps.com
+        host_name                       name.mydomain.com
         service_description             PING
         check_command                   check_ping!100.0,20%!500.0,60%
         }
@@ -165,7 +165,7 @@ define service {
 
 define service {
         use                             generic-service
-        host_name                       learning.arrivuapps.com
+        host_name                       name.mydomain.com
         service_description             SSH
         check_command                   check_ssh
         notifications_enabled           0
@@ -175,7 +175,7 @@ define service {
 
 define service {
         use                             generic-service
-        host_name                       learning.arrivuapps.com
+        host_name                       name.mydomain.com
         service_description             Current Load
         check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
         }
