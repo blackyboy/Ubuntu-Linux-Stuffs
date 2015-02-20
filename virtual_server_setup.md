@@ -525,6 +525,24 @@ include /etc/logrotate.d
 # vim /etc/logrotate.d/service_name
 ```
 
+* Create a logrotate conf for canvas logs.
+
+
+```
+# sudo vim /etc/logrotate.d/canvas
+
+/var/location/to/pproject/log/*.log {
+daily
+missingok
+rotate 30
+compress
+delaycompress
+notifempty
+copytruncate
+su user_here group_here
+}
+```
+
 ##### Understanding the Options in Logrotate.
 
 * daily – Rotate the log files each day. You can also use weekly or monthly here.
