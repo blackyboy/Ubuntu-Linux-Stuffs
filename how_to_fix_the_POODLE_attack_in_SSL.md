@@ -9,7 +9,7 @@ Edit the virtualhost under
 
 Under 
 
-``
+```
 # ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
 ```
 
