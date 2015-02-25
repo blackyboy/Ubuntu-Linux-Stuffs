@@ -188,6 +188,79 @@ define service {
 # sudo service icinga restart
 ```
 
+#### Adding Virtual Host to Icinga.
+
+
+If we need to access our site without using /icinga we can assign a virtualhost
+
+
+* Create a virtualhost under /etc/apache2/site-available/
+* Enable SSL moduel and Rewrite.
+
+Append the virtualhost entry to newly creating file.
+
+
+```
+<VirtualHost *:80>
+  ServerName monitor.mydomain.com
+  ServerAdmin admin@mydomain.com
+  DocumentRoot /usr/share/icinga/htdocs
+  ScriptAlias /cgi-bin/icinga /usr/lib/cgi-bin/icinga
+  ScriptAlias /icinga/cgi-bin /usr/lib/cgi-bin/icinga
+  Alias /icinga/stylesheets /etc/icinga/stylesheets
+  Alias /icinga /usr/share/icinga/htdocs
+  RewriteEngine On
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{REQUEST_URI} !^/health_check
+  RewriteRule (.*) https://monitor.mydomain.com%{REQUEST_URI} [L]
+  ErrorLog /var/log/apache2/monitor_errors.log
+  CustomLog /var/log/apache2/monitor_access.log combined
+  <DirectoryMatch (/usr/share/icinga/htdocs|/usr/lib/cgi-bin/icinga|/etc/icinga/stylesheets)>
+        Options FollowSymLinks
+        DirectoryIndex index.html
+        AllowOverride AuthConfig
+        Order Allow,Deny
+        Allow From All
+        AuthName "Icinga Access"
+        AuthType Basic
+        AuthUserFile /etc/icinga/htpasswd.users
+        Require valid-user
+  </DirectoryMatch>
+</VirtualHost>
+<VirtualHost *:443>
+  ServerName monitor.mydomian.com
+  ServerAdmin admin@mydomain.com
+  DocumentRoot /usr/share/icinga/htdocs
+  ScriptAlias /cgi-bin/icinga /usr/lib/cgi-bin/icinga
+  ScriptAlias /icinga/cgi-bin /usr/lib/cgi-bin/icinga
+  Alias /icinga/stylesheets /etc/icinga/stylesheets
+  Alias /icinga /usr/share/icinga/htdocs
+  LogLevel warn
+  ErrorLog /var/log/apache2/monitor_errors.log
+  CustomLog /var/log/apache2/monitor_access.log combined
+  SSLEngine on
+  BrowserMatch "MSIE [2-6]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+  BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+  SSLCertificateFile /etc/ssl/monitor_ssl/STAR_mydomain_com.crt
+  SSLCertificateKeyFile /etc/ssl/monitor_ssl/mydomain.com.key
+  SSLCertificateChainFile /etc/ssl/monitor_ssl/STAR_mydomain_com-bundle.crt
+  <DirectoryMatch (/usr/share/icinga/htdocs|/usr/lib/cgi-bin/icinga|/etc/icinga/stylesheets)>
+        Options FollowSymLinks
+        DirectoryIndex index.html
+        AllowOverride AuthConfig
+        Order Allow,Deny
+        Allow From All
+        AuthName "Icinga Access"
+        AuthType Basic
+        AuthUserFile /etc/icinga/htpasswd.users
+        Require valid-user
+  </DirectoryMatch>
+</VirtualHost>
+```
+
+* Enable the newly created virtualhost using a2ensite, Restart the apache2 service.
+
+
 That's it we have done. Add more service what ever we need to get monitor.
 
 
