@@ -241,6 +241,9 @@ Append the virtualhost entry to newly creating file.
   SSLEngine on
   BrowserMatch "MSIE [2-6]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
   BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+  SSLProtocol all -SSLv3 -SSLv2
+  SSLHonorCipherOrder on
+  SSLCipherSuite "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS"
   SSLCertificateFile /etc/ssl/monitor_ssl/STAR_mydomain_com.crt
   SSLCertificateKeyFile /etc/ssl/monitor_ssl/mydomain.com.key
   SSLCertificateChainFile /etc/ssl/monitor_ssl/STAR_mydomain_com-bundle.crt
