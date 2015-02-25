@@ -210,9 +210,9 @@ Append the virtualhost entry to newly creating file.
   Alias /icinga/stylesheets /etc/icinga/stylesheets
   Alias /icinga /usr/share/icinga/htdocs
   RewriteEngine On
-  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{HTTPS} off
+  RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} 
   RewriteCond %{REQUEST_URI} !^/health_check
-  RewriteRule (.*) https://monitor.mydomain.com%{REQUEST_URI} [L]
   ErrorLog /var/log/apache2/monitor_errors.log
   CustomLog /var/log/apache2/monitor_access.log combined
   <DirectoryMatch (/usr/share/icinga/htdocs|/usr/lib/cgi-bin/icinga|/etc/icinga/stylesheets)>
